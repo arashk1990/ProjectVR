@@ -36,7 +36,6 @@ class DeepSurv:
     ):
         """
         This class implements and trains a DeepSurv model.
-
         Parameters:
             n_in: number of input nodes.
             learning_rate: learning rate for training.
@@ -144,26 +143,20 @@ class DeepSurv:
     def _negative_log_likelihood(self, E, deterministic = False):
         """Return the negative average log-likelihood of the prediction
             of this model under a given target distribution.
-
         .. math::
-
             \frac{1}{N_D} \sum_{i \in D}[F(x_i,\theta) - log(\sum_{j \in R_i} e^F(x_j,\theta))]
                 - \lambda P(\theta)
-
         where:
             D is the set of observed events
             N_D is the number of observed events
             R_i is the set of examples that are still alive at time of death t_j
             F(x,\theta) = log hazard rate
-
         Note: We assume that there are no tied event times
-
         Parameters:
             E (n,): TensorVector that corresponds to a vector that gives the censor
                 variable for each example
             deterministic: True or False. Determines if the output of the network
                 is calculated determinsitically.
-
         Returns:
             neg_likelihood: Theano expression that computes negative
                 partial Cox likelihood
@@ -186,7 +179,6 @@ class DeepSurv:
         """
         Returns Theano expressions for the network's loss function and parameter
             updates.
-
         Parameters:
             L1_reg: float for L1 weight regularization coefficient.
             L2_reg: float for L2 weight regularization coefficient.
@@ -198,7 +190,6 @@ class DeepSurv:
                 Default: Stochastic Gradient Descent with Nesterov momentum
             **kwargs: additional parameters to provide to update_fn.
                 For example: momentum
-
         Returns:
             loss: Theano expression for a penalized negative log likelihood.
             updates: Theano expression to update the parameters using update_fn.
@@ -241,14 +232,12 @@ class DeepSurv:
     **kwargs):
         """
         Builds the loss and update Theano expressions into callable Theano functions.
-
         Parameters:
             L1_reg: coefficient for L1 weight decay regularization
             L2_reg: coefficient for L2 weight decay regularization. Used to help
                 prevent the model from overfitting.
             learning_rate: learning rate coefficient.
             **kwargs: additional parameters to provide to _get_loss_updates.
-
         Returns:
             train_fn: Theano function that takes a (n, d) array and (n,) vector
                 and computes the loss function and updates the network parameters.
@@ -284,29 +273,22 @@ class DeepSurv:
     def get_concordance_index(self, x, t, e, **kwargs):
         """
         Taken from the lifelines.utils package. Docstring is provided below.
-
         Parameters:
             x: (n, d) numpy array of observations.
             t: (n) numpy array representing observed time events.
             e: (n) numpy array representing time indicators.
-
         Returns:
             concordance_index: calcualted using lifelines.utils.concordance_index
-
         lifelines.utils.concordance index docstring:
-
         Calculates the concordance index (C-index) between two series
         of event times. The first is the real survival times from
         the experimental data, and the other is the predicted survival
         times from a model of some kind.
-
         The concordance index is a value between 0 and 1 where,
         0.5 is the expected result from random predictions,
         1.0 is perfect concordance and,
         0.0 is perfect anti-concordance (multiply predictions with -1 to get 1.0)
-
         Score is usually 0.6-0.7 for survival models.
-
         See:
         Harrell FE, Lee KL, Mark DB. Multivariable prognostic models: issues in
         developing models, evaluating assumptions and adequacy, and measuring and
@@ -353,7 +335,6 @@ class DeepSurv:
         """
         Trains a DeepSurv network on the provided training data and evalutes
             it on the validation data.
-
         Parameters:
             train_data: dictionary with the following keys:
                 'x' : (n,d) array of observations (dtype = float32).
@@ -381,7 +362,6 @@ class DeepSurv:
                 Default: lasagne.updates.nesterov_momentum
             **kwargs: additional parameters to provide _get_train_valid_fn.
                 Parameters used to provide configurations to update_fn.
-
         Returns:
             metrics: a dictionary of training metrics that include:
                 'train': a list of loss values for each training epoch
@@ -485,20 +465,7 @@ class DeepSurv:
             ))
         logger.shutdown()
 
-        # Return Logger.getMetrics()
-        # metrics = {
-        #     'train': train_loss,
-        #     'best_params': best_params,
-        #     'best_params_idx' : best_params_idx,
-        #     'train_ci' : train_ci
-        # }
-        # if valid_data:
-        #     metrics.update({
-        #         'valid' : valid_loss,
-        #         'valid_ci': valid_ci,
-        #         'best_valid_ci': max(valid_ci),
-        #         'best_validation_loss':best_validation_loss
-        #     })
+
         logger.history['best_valid_loss'] = best_validation_loss
         logger.history['best_params'] = best_params
         logger.history['best_params_idx'] = best_params_idx
@@ -566,13 +533,10 @@ class DeepSurv:
         """
         Returns a theano expression for the output of network which is an
             observation's predicted risk.
-
         Parameters:
             deterministic: True or False. Determines if the output of the network
                 is calculated determinsitically.
-
         Returns:
-            risk: a theano expression representing a predicted risk h(x)
         """
         return lasagne.layers.get_output(self.network,
                                         deterministic = deterministic)
@@ -580,58 +544,26 @@ class DeepSurv:
     def predict_risk(self, x):
         """
         Calculates the predicted risk for an array of observations.
-
         Parameters:
             x: (n,d) numpy array of observations.
-
         Returns:
             risks: (n) array of predicted risks
         """
         risk_fxn = theano.function(
+            allow_input_downcast=True,
             inputs = [self.X],
             outputs = self.risk(deterministic= True),
             name = 'predicted risk'
         )
         return risk_fxn(x)
 
-    def recommend_treatment(self, x, trt_i, trt_j, trt_idx = -1):
-        """
-        Computes recommendation function rec_ij(x) for two treatments i and j.
-            rec_ij(x) is the log of the hazards ratio of x in treatment i vs.
-            treatment j.
 
-        .. math::
-
-            rec_{ij}(x) = log(e^h_i(x) / e^h_j(x)) = h_i(x) - h_j(x)
-
-        Parameters:
-            x: (n, d) numpy array of observations
-            trt_i: treatment i value
-            trt_j: treatment j value
-            trt_idx: the index of x representing the treatment group column
-
-        Returns:
-            rec_ij: recommendation
-        """
-        # Copy x to prevent overwritting data
-        x_trt = numpy.copy(x)
-
-        # Calculate risk of observations treatment i
-        x_trt[:,trt_idx] = trt_i
-        h_i = self.predict_risk(x_trt)
-        # Risk of observations in treatment j
-        x_trt[:,trt_idx] = trt_j;
-        h_j = self.predict_risk(x_trt)
-
-        rec_ij = h_i - h_j
-        return rec_ij
 
     def plot_risk_surface(self, data, i = 0, j = 1,
         figsize = (6,4), x_lims = None, y_lims = None, c_lims = None):
         """
         Plots the predicted risk surface of the network with respect to two
         observed covarites i and j.
-
         Parameters:
             data: (n,d) numpy array of observations of which to predict risk.
             i: index of data to plot as axis 1
@@ -640,7 +572,6 @@ class DeepSurv:
             x_lims: Optional. If provided, override default x_lims (min(x_i), max(x_i))
             y_lims: Optional. If provided, override default y_lims (min(x_j), max(x_j))
             c_lims: Optional. If provided, override default color limits.
-
         Returns:
             fig: matplotlib figure object.
         """
