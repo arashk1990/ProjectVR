@@ -2,11 +2,13 @@
     "lr_decay": [0.0, 0.001],
     "learning_rate": [-7, -3],
     "num_nodes": [10, 100],
-    "num_layers": [2,8],
-    "momentum": [0.8, 0.95],
+    "num_layers": [1,4],
+    "momentum": [0.6, 0.95],
     "L2_reg": [0.05, 5.0],
-    "dropout": [0.0, 0.4]
+    "dropout": [0.0, 0.4],
+    "n_in": [10,32.99]
 }
+
 
 
 
