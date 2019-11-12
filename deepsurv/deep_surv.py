@@ -18,7 +18,6 @@ from lifelines.utils import concordance_index
 
 from .deepsurv_logger import DeepSurvLogger
 
-from lasagne.regularization import regularize_layer_params, l1, l2
 from lasagne.nonlinearities import rectify,selu
 
 
@@ -27,11 +26,10 @@ from lasagne.nonlinearities import rectify,selu
 class DeepSurv:
     def __init__(self, n_in,
     learning_rate, hidden_layers_sizes = None,
-    lr_decay = 0.0, momentum = 0.8,
-    L2_reg = 4.9, L1_reg = 0.0,
+    lr_decay = 0.0,
     activation = "rectify",
     dropout = 0.1,
-    batch_norm = False,
+    batch_norm = True,
     standardize = False
     ):
         """
@@ -57,7 +55,7 @@ class DeepSurv:
 
         self.X = T.fmatrix('x')  # patients covariates
         self.E = T.ivector('e') # the observations vector
-        
+
 
         # Default Standardization Values: mean = 0, std = 1
         self.offset = numpy.zeros(shape = n_in, dtype=numpy.float32)
@@ -123,9 +121,6 @@ class DeepSurv:
             'learning_rate': learning_rate,
             'hidden_layers_sizes': hidden_layers_sizes,
             'lr_decay': lr_decay,
-            'momentum': momentum,
-            'L2_reg': L2_reg,
-            'L1_reg': L1_reg,
             'activation': activation,
             'dropout': dropout,
             'batch_norm': batch_norm,
@@ -171,10 +166,8 @@ class DeepSurv:
         return neg_likelihood
 
     def _get_loss_updates(self,
-    L1_reg = 0.0, L2_reg = 0.001,
-    update_fn = lasagne.updates.nesterov_momentum,
+    update_fn = lasagne.updates.adam,
     max_norm = None, deterministic = False,
-    momentum = 0.9,
     **kwargs):
         """
         Returns Theano expressions for the network's loss function and parameter
@@ -197,8 +190,6 @@ class DeepSurv:
 
         loss = (
             self._negative_log_likelihood(self.E, deterministic)
-            + regularize_layer_params(self.network,l1) * L1_reg
-            + regularize_layer_params(self.network, l2) * L2_reg
         )
 
         if max_norm:
@@ -212,9 +203,6 @@ class DeepSurv:
                 loss, self.params, **kwargs
             )
 
-        if momentum:
-            updates = lasagne.updates.apply_nesterov_momentum(updates, 
-                self.params, self.learning_rate, momentum=momentum)
 
         # If the model was loaded from file, reload params
         if self.restored_update_params:
@@ -227,8 +215,7 @@ class DeepSurv:
 
         return loss, updates
 
-    def _get_train_valid_fn(self,
-    L1_reg, L2_reg, learning_rate,
+    def _get_train_valid_fn(self, learning_rate,
     **kwargs):
         """
         Builds the loss and update Theano expressions into callable Theano functions.
@@ -248,7 +235,7 @@ class DeepSurv:
         """
 
         loss, updates = self._get_loss_updates(
-            L1_reg, L2_reg, deterministic = False,
+            deterministic = False,
             learning_rate=learning_rate, **kwargs
         )
         train_fn = theano.function(
@@ -259,7 +246,7 @@ class DeepSurv:
         )
 
         valid_loss, _ = self._get_loss_updates(
-            L1_reg, L2_reg, deterministic = True,
+            deterministic = True,
             learning_rate=learning_rate, **kwargs
         )
 
@@ -307,7 +294,6 @@ class DeepSurv:
     def _standardize_x(self, x):
         return (x - self.offset) / self.scale
 
-    # @TODO: implement for varios instances of datasets
     def prepare_data(self,dataset):
         if isinstance(dataset, dict):
             x, e, t = dataset['x'], dataset['e'], dataset['t']
@@ -329,7 +315,7 @@ class DeepSurv:
     validation_frequency = 250,
     patience = 2000, improvement_threshold = 0.99999, patience_increase = 2,
     logger = None,
-    update_fn = lasagne.updates.nesterov_momentum,
+    update_fn = lasagne.adam,
     verbose = True,
     **kwargs):
         """
@@ -359,7 +345,6 @@ class DeepSurv:
             patience_increase: multiplier to patience if threshold is reached.
             logger: None or DeepSurvLogger.
             update_fn: lasagne update function for training.
-                Default: lasagne.updates.nesterov_momentum
             **kwargs: additional parameters to provide _get_train_valid_fn.
                 Parameters used to provide configurations to update_fn.
         Returns:
@@ -377,9 +362,9 @@ class DeepSurv:
         """
 
 
-        
-        
-        
+
+
+
         if logger is None:
             logger = DeepSurvLogger('DeepSurv')
 
@@ -387,7 +372,7 @@ class DeepSurv:
         if self.standardize:
             self.offset = train_data['x'].mean(axis = 0)
             self.scale = train_data['x'].std(axis = 0)
-            
+
 
         x_train, e_train, t_train = self.prepare_data(train_data)
 
@@ -402,12 +387,10 @@ class DeepSurv:
         # Initialize Training Parameters
         lr = theano.shared(numpy.array(self.learning_rate,
                                     dtype = numpy.float32))
-        momentum = numpy.array(0, dtype= numpy.float32)
+
 
         train_fn, valid_fn = self._get_train_valid_fn(
-            L1_reg=self.L1_reg, L2_reg=self.L2_reg,
             learning_rate=lr,
-            momentum = momentum,
             update_fn = update_fn, **kwargs
         )
 
@@ -416,9 +399,6 @@ class DeepSurv:
             # Power-Learning Rate Decay
             lr = self.learning_rate / (1 + epoch * self.lr_decay)
             logger.logValue('lr', lr, epoch)
-
-            if self.momentum and epoch >= 10:
-                momentum = self.momentum
 
             loss = train_fn(x_train, e_train)
 
@@ -513,7 +493,7 @@ class DeepSurv:
             return results
 
         def sort_params_by_idx(params):
-            return [param for (idx, param) in sorted(params, 
+            return [param for (idx, param) in sorted(params,
             key=lambda param: param[0])]
 
         # Load all of the parameters
@@ -523,7 +503,7 @@ class DeepSurv:
 
         # Sort them according to the idx to ensure they are set correctly
         sorted_weights_in = sort_params_by_idx(weights_in)
-        lasagne.layers.set_all_param_values(self.network, sorted_weights_in, 
+        lasagne.layers.set_all_param_values(self.network, sorted_weights_in,
             trainable=False)
 
         sorted_updates_in = sort_params_by_idx(updates_in)
@@ -558,45 +538,6 @@ class DeepSurv:
         return risk_fxn(x)
 
 
-
-    def plot_risk_surface(self, data, i = 0, j = 1,
-        figsize = (6,4), x_lims = None, y_lims = None, c_lims = None):
-        """
-        Plots the predicted risk surface of the network with respect to two
-        observed covarites i and j.
-        Parameters:
-            data: (n,d) numpy array of observations of which to predict risk.
-            i: index of data to plot as axis 1
-            j: index of data to plot as axis 2
-            figsize: size of figure for matplotlib
-            x_lims: Optional. If provided, override default x_lims (min(x_i), max(x_i))
-            y_lims: Optional. If provided, override default y_lims (min(x_j), max(x_j))
-            c_lims: Optional. If provided, override default color limits.
-        Returns:
-            fig: matplotlib figure object.
-        """
-
-        fig = plt.figure(figsize=figsize)
-        X = data[:,i]
-        Y = data[:,j]
-        Z = self.predict_risk(data)
-
-        if not x_lims is None:
-            x_lims = [np.round(np.min(X)), np.round(np.max(X))]
-        if not y_lims is None:
-            y_lims = [np.round(np.min(Y)), np.round(np.max(Y))]
-        if not c_lims is None:
-            c_lims = [np.round(np.min(Z)), np.round(np.max(Z))]
-
-        ax = plt.scatter(X,Y, c = Z, edgecolors = 'none', marker = '.')
-        ax.set_clim(*c_lims)
-        plt.colorbar()
-        plt.xlim(*x_lims)
-        plt.ylim(*y_lims)
-        plt.xlabel('$x_{%d}$' % i, fontsize=18)
-        plt.ylabel('$x_{%d}$' % j, fontsize=18)
-
-        return fig
 
 def load_model_from_json(model_fp, weights_fp = None):
     with open(model_fp, 'r') as fp:
