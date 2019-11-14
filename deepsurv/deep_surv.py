@@ -130,9 +130,6 @@ class DeepSurv:
         self.n_in = n_in
         self.learning_rate = learning_rate
         self.lr_decay = lr_decay
-        self.L2_reg = L2_reg
-        self.L1_reg = L1_reg
-        self.momentum = momentum
         self.restored_update_params = None
 
     def _negative_log_likelihood(self, E, deterministic = False):
@@ -315,7 +312,7 @@ class DeepSurv:
     validation_frequency = 250,
     patience = 2000, improvement_threshold = 0.99999, patience_increase = 2,
     logger = None,
-    update_fn = lasagne.adam,
+    update_fn = lasagne.updates.adam,
     verbose = True,
     **kwargs):
         """
