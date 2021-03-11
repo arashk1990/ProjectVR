@@ -1,0 +1,2 @@
+round_epochs,val_loss,val_main_output_loss,val_sec_output_loss,val_main_output_score,val_sec_output_score,loss,main_output_loss,sec_output_loss,main_output_score,sec_output_score,Dlayers,Llayers,batch_size,drpout,nodes
+100,0.0005044981786562615,0.0003790993941947818,0.0006256570341065526,-0.0003790993941947818,-0.0006256570341065526,0.0002925178059061336,0.00021157869,0.00040538335,-0.00021157869,-0.00040538335,3,3,32,0,100

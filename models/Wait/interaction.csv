@@ -1,0 +1,179 @@
+,,0
+Walk to Shopping,Age Over 50,-0.4360547531832063
+More than 1 Car in the Household,Mixed Traffic Conditions,0.43607113988386537
+Main Mode: Car,Vehicle Arrival Rate,-0.32945921979184756
+Main Mode: Car,Age Over 50,-0.2992621379271646
+Main Mode: Car,Traffic Density,-0.28962306293130596
+Main Mode: Car, Age: 18 - 29,-0.3773342867798645
+Main Mode: Car,Gender: Female,-0.4971685391849254
+Main Mode: Car,Walk to Work,-0.33963978375877507
+Vehicle Arrival Rate,More than 1 Car in the Household,0.12442964472370788
+Vehicle Arrival Rate,Participant Owns a Driving License,0.10481358264302343
+Vehicle Arrival Rate,Mixed Traffic Conditions,0.2361696885840874
+Vehicle Arrival Rate, Previous VR Experience,0.11799898269423637
+Vehicle Arrival Rate,Age: 30 - 39,0.11628373344044608
+Vehicle Arrival Rate, Lane Width,0.11098959011200507
+Vehicle Arrival Rate,Time: Night,0.09951009889213706
+Age Over 50,Walk to Shopping,-0.3055142303974607
+Age Over 50,More than 1 Car in the Household,-0.35986809120641683
+Age Over 50,Main Mode: Car,-0.4102923807245348
+Age Over 50,Gender: Female,-0.38549022180193
+Age Over 50, Previous VR Experience,-0.5905321004995296
+Age Over 50,Walk to Work,-0.3265322998957023
+Traffic Density,Walk to Shopping,-0.43017494617520113
+Traffic Density,More than 1 Car in the Household,-0.4074959674861775
+Traffic Density,Main Mode: Car,-0.441867657146217
+Traffic Density,Vehicle Arrival Rate,-0.3984724789714178
+Traffic Density,Age Over 50,-0.4309882620423439
+Traffic Density, Age: 18 - 29,-0.3809231336481287
+Traffic Density, Weather: Snowy,-0.3919799741602625
+Traffic Density,Gender: Female,-0.4372513313808371
+Traffic Density,Road Type: One Way,-0.28325213569093655
+Traffic Density,Main Mode: Active Modes,-0.4093281312162527
+Traffic Density,Participant Owns a Driving License,-0.4037345708214387
+Traffic Density, Previous VR Experience,-0.4112473431598707
+Traffic Density,Age: 30 - 39,-0.42235902195110575
+Traffic Density,Fully Automated Conditions,-0.3984724789714178
+Traffic Density, Lane Width,-0.41635170814153416
+Traffic Density,Time: Night,-0.4270082654622783
+Traffic Density,Walk to Work,-0.43714323513284314
+ Age: 18 - 29,Main Mode: Car,-0.3410014136227441
+ Age: 18 - 29,Gender: Female,-0.3004313493451555
+ Age: 18 - 29,Mixed Traffic Conditions,-0.30039558280095313
+ Weather: Snowy,Walk to Shopping,-0.25652495891183885
+ Weather: Snowy,More than 1 Car in the Household,-0.1887912530813531
+ Weather: Snowy,Vehicle Arrival Rate,-0.30315352684475094
+ Weather: Snowy,Age Over 50,-0.37877600046395904
+ Weather: Snowy,Traffic Density,-0.31269462284734484
+ Weather: Snowy,Gender: Female,-0.19746016991069318
+ Weather: Snowy,Road Type: One Way,-0.28017265171057415
+ Weather: Snowy,Main Mode: Active Modes,-0.2685588120677826
+ Weather: Snowy,Participant Owns a Driving License,-0.23015923116365747
+ Weather: Snowy, Previous VR Experience,-0.20880462096830896
+ Weather: Snowy,Age: 30 - 39,-0.27746341085104076
+ Weather: Snowy,Fully Automated Conditions,-0.25072174758406596
+ Weather: Snowy,Time: Night,-0.23443493845732713
+ Weather: Snowy,Walk to Work,-0.2131362472227593
+Main Mode: Active Modes,More than 1 Car in the Household,-0.8289215266548843
+Main Mode: Active Modes,Vehicle Arrival Rate,-0.4327788387710606
+Main Mode: Active Modes,Traffic Density,-0.4136332933686218
+Main Mode: Active Modes, Age: 18 - 29,-0.6424700001905266
+Main Mode: Active Modes, Weather: Snowy,-0.4248530027911272
+Main Mode: Active Modes,Gender: Female,-0.5796567744463944
+Main Mode: Active Modes,Mixed Traffic Conditions,-0.5938144272077353
+Main Mode: Active Modes, Previous VR Experience,-0.5780640619286478
+Main Mode: Active Modes, Lane Width,-0.4068088349096194
+Main Mode: Active Modes,Walk to Work,-0.43070819012092937
+Participant Owns a Driving License,Age Over 50,0.25485097957654196
+Mixed Traffic Conditions,Walk to Shopping,-0.6137277136773039
+Mixed Traffic Conditions,More than 1 Car in the Household,-0.3321990958061568
+Mixed Traffic Conditions,Main Mode: Car,-0.5658945215224053
+Mixed Traffic Conditions,Vehicle Arrival Rate,-0.7520743035649934
+Mixed Traffic Conditions,Age Over 50,-0.6309736686861154
+Mixed Traffic Conditions, Age: 18 - 29,-0.644350424905122
+Mixed Traffic Conditions, Weather: Snowy,-0.35640049671577473
+Mixed Traffic Conditions,Gender: Female,-0.4676409347663849
+Mixed Traffic Conditions,Road Type: One Way,-0.6319476572172374
+Mixed Traffic Conditions,Main Mode: Active Modes,-0.5037587663172862
+Mixed Traffic Conditions,Participant Owns a Driving License,-0.5362134519103517
+Mixed Traffic Conditions, Previous VR Experience,-0.5966940159921418
+Mixed Traffic Conditions,Age: 30 - 39,-0.34961828658722327
+Mixed Traffic Conditions, Lane Width,-0.5355061510417256
+Mixed Traffic Conditions,Time: Night,-0.5022108791616612
+Mixed Traffic Conditions,Walk to Work,-0.5583184499660482
+ Previous VR Experience,Walk to Shopping,0.49366185992726813
+ Previous VR Experience,More than 1 Car in the Household,0.4906290936087479
+ Previous VR Experience,Main Mode: Car,0.48872158202445554
+ Previous VR Experience,Vehicle Arrival Rate,0.5649705988418767
+ Previous VR Experience,Age Over 50,0.3064270746576464
+ Previous VR Experience,Traffic Density,0.544028973082327
+ Previous VR Experience, Age: 18 - 29,0.5007708790050934
+ Previous VR Experience, Weather: Snowy,0.49915805802348145
+ Previous VR Experience,Gender: Female,0.510477206312271
+ Previous VR Experience,Road Type: One Way,0.462059320509472
+ Previous VR Experience,Main Mode: Active Modes,0.40414176519524075
+ Previous VR Experience,Participant Owns a Driving License,0.4780397512431613
+ Previous VR Experience,Mixed Traffic Conditions,0.4948320948891411
+ Previous VR Experience,Age: 30 - 39,0.49470443632745326
+ Previous VR Experience,Fully Automated Conditions,0.49273141691841404
+ Previous VR Experience, Lane Width,0.44579315747760623
+ Previous VR Experience,Time: Night,0.5551029608716797
+ Previous VR Experience,Walk to Work,0.4635684204261768
+Age: 30 - 39,Walk to Shopping,0.2965834633560962
+Age: 30 - 39,Vehicle Arrival Rate,0.25290775038234986
+Age: 30 - 39,Gender: Female,0.31479895917170864
+Age: 30 - 39,Road Type: One Way,0.2527268535566387
+Age: 30 - 39,Main Mode: Active Modes,0.46264635303671775
+Age: 30 - 39,Time: Night,0.3144448448977623
+Age: 30 - 39,Walk to Work,0.41546519413762584
+Fully Automated Conditions,Walk to Shopping,-0.4155277542845078
+Fully Automated Conditions,More than 1 Car in the Household,-0.4887223912170357
+Fully Automated Conditions,Main Mode: Car,-0.6272063789691579
+Fully Automated Conditions,Vehicle Arrival Rate,-0.4931076702296355
+Fully Automated Conditions,Age Over 50,-0.6138615689053711
+Fully Automated Conditions,Traffic Density,-0.419300416462865
+Fully Automated Conditions, Age: 18 - 29,-0.42510141305412785
+Fully Automated Conditions, Weather: Snowy,-0.37490601933605244
+Fully Automated Conditions,Gender: Female,-0.3311615795285636
+Fully Automated Conditions,Road Type: One Way,-0.5611527207942281
+Fully Automated Conditions,Main Mode: Active Modes,-0.24672857332094755
+Fully Automated Conditions,Participant Owns a Driving License,-0.4377618087110831
+Fully Automated Conditions, Previous VR Experience,-0.4947762791915982
+Fully Automated Conditions,Age: 30 - 39,-0.3631805876214814
+Fully Automated Conditions, Lane Width,-0.34435858158291616
+Fully Automated Conditions,Time: Night,-0.5709951566429735
+Fully Automated Conditions,Walk to Work,-0.37905442822329083
+ Lane Width,Walk to Shopping,-0.1770412859791148
+ Lane Width,More than 1 Car in the Household,-0.28902465767923935
+ Lane Width,Main Mode: Car,-0.27083366143375764
+ Lane Width,Vehicle Arrival Rate,-0.19595961951000748
+ Lane Width,Age Over 50,-0.15387395052469438
+ Lane Width,Traffic Density,-0.1898119690150403
+ Lane Width, Age: 18 - 29,-0.17228185675014948
+ Lane Width, Weather: Snowy,-0.1726885079233293
+ Lane Width,Gender: Female,-0.19394917488538013
+ Lane Width,Road Type: One Way,-0.21474717818172728
+ Lane Width,Main Mode: Active Modes,-0.20219997630893444
+ Lane Width,Participant Owns a Driving License,-0.21418397765974134
+ Lane Width,Mixed Traffic Conditions,-0.2465377345385688
+ Lane Width, Previous VR Experience,-0.2616258569901897
+ Lane Width,Age: 30 - 39,-0.25911296859852834
+ Lane Width,Fully Automated Conditions,-0.19387553820013487
+ Lane Width,Time: Night,-0.19548174848555094
+ Lane Width,Walk to Work,-0.16415070261462703
+Time: Night,Walk to Shopping,0.39143899273037897
+Time: Night,More than 1 Car in the Household,0.3447049060850734
+Time: Night,Main Mode: Car,0.38783721957790124
+Time: Night,Vehicle Arrival Rate,0.30388176833595776
+Time: Night,Age Over 50,0.2634335386111511
+Time: Night,Traffic Density,0.3171611972765307
+Time: Night, Age: 18 - 29,0.31536761440088884
+Time: Night, Weather: Snowy,0.38213682836807333
+Time: Night,Gender: Female,0.3691613526942916
+Time: Night,Road Type: One Way,0.3387523494833247
+Time: Night,Main Mode: Active Modes,0.38492487146247045
+Time: Night,Participant Owns a Driving License,0.37219723562130586
+Time: Night,Mixed Traffic Conditions,0.7272585411865293
+Time: Night, Previous VR Experience,0.43475766716424313
+Time: Night,Age: 30 - 39,0.49557533264450315
+Time: Night,Fully Automated Conditions,0.35137130557912827
+Time: Night, Lane Width,0.4540248755478341
+Time: Night,Walk to Work,0.2803195983187676
+Walk to Work,Walk to Shopping,0.43170175962671414
+Walk to Work,More than 1 Car in the Household,0.5410532760029385
+Walk to Work,Main Mode: Car,0.5483207366441252
+Walk to Work,Vehicle Arrival Rate,0.3675368564752381
+Walk to Work,Age Over 50,0.6690325321746233
+Walk to Work,Traffic Density,0.32624763516508015
+Walk to Work, Age: 18 - 29,0.4372434507070763
+Walk to Work, Weather: Snowy,0.45143813858227855
+Walk to Work,Gender: Female,0.43553994654797945
+Walk to Work,Road Type: One Way,0.426221295938737
+Walk to Work,Main Mode: Active Modes,0.2550129357698938
+Walk to Work,Participant Owns a Driving License,0.4133689125002144
+Walk to Work,Mixed Traffic Conditions,0.5524938553445742
+Walk to Work, Previous VR Experience,0.43041575917567076
+Walk to Work,Age: 30 - 39,0.32638419866674934
+Walk to Work,Fully Automated Conditions,0.4177017869491701
+Walk to Work, Lane Width,0.44931947143819995
+Walk to Work,Time: Night,0.3163427416347722
